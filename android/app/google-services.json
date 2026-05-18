@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "109465345300",
+    "firebase_url": "https://lojaflutter-f3176-default-rtdb.firebaseio.com",
+    "project_id": "lojaflutter-f3176",
+    "storage_bucket": "lojaflutter-f3176.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:109465345300:android:a56566ecf54e3c8d27f601",
+        "android_client_info": {
+          "package_name": "br.com.tavora.lojavirtual"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5n8I-SeqsKBBtl-ac6SE8FHfqihhnHqI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
