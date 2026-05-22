@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:lojavirtual/view/home_screen.dart';
+import 'package:lojavirtual/view/pages/home_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
         primaryColor: const Color.fromARGB(255, 4, 125, 141),
       ),
 
-      home: home_screen(),
+      home: HomeScreen(),
+      
     );
   }
 }

@@ -1,30 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:lojavirtual/models/widgets/custom_drawer.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:lojavirtual/models/widgets/builderbody.dart';
 
 class HomeTab extends StatelessWidget {
-  const HomeTab({super.key});
+  const HomeTab(this.pageController);
+  final PageController pageController ;
 
   @override
   Widget build(BuildContext context) {
-    Widget _builderBody() => Container(
-          decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Color(0xFF5B86E5),
-                  Color(0xFF9BC6FF),
-                ]),
-          ),
-        );
     return Scaffold(
+      drawer: CustomDrawer(pageController),
       body: Stack(
         children: [
-          // BACKGROUND
-          _builderBody(),
-          // CONTEÚDO
+          // BACKGROUND MAIN PAGE
+          BuilderBody(color1: Color(0xFF5B86E5), color2: Color(0xFF9BC6FF)),
+          //
           CustomScrollView(
             slivers: [
               // APP BAR
