@@ -1,5 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:lojavirtual/controller/datas/products_data.dart';
 import 'package:lojavirtual/controller/tiles/products_screen.dart';
 
 class ProductsType extends StatelessWidget {
@@ -9,18 +9,20 @@ class ProductsType extends StatelessWidget {
     required this.type,
   });
 
-  final QueryDocumentSnapshot products;
+  final ProductsData products;
   final String type;
 
   @override
   Widget build(BuildContext context) {
-    final data = products.data() as Map<String, dynamic>;
-
     return InkWell(
       borderRadius: BorderRadius.circular(12),
-      onTap: (){
+      onTap: () {
         Navigator.of(context).push(
-          MaterialPageRoute(builder: (context)=>ProductScreen(item: products,)),
+          MaterialPageRoute(
+            builder: (context) => ProductScreen(
+              product: products
+            ),
+          ),
         );
       },
       child: type == "grid"
@@ -37,7 +39,7 @@ class ProductsType extends StatelessWidget {
                   AspectRatio(
                     aspectRatio: 1,
                     child: Image.network(
-                      data["image"],
+                      products.seats![0].toString(),
                       fit: BoxFit.cover,
                       width: double.infinity,
                     ),
@@ -48,7 +50,7 @@ class ProductsType extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          data["title"],
+                          products.title ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
@@ -58,7 +60,7 @@ class ProductsType extends StatelessWidget {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          "R\$ ${data["price"]}",
+                          "R\$ ${products.price}",
                           style: TextStyle(
                             color: Colors.green.shade600,
                             fontWeight: FontWeight.bold,
@@ -79,7 +81,7 @@ class ProductsType extends StatelessWidget {
                     width: 170,
                     height: 150,
                     child: Image.network(
-                      data["image"],
+                      products.seats![0].toString(),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -91,7 +93,7 @@ class ProductsType extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            data["title"],
+                            products.title ?? "",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -101,7 +103,7 @@ class ProductsType extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            "R\$ ${data["price"]}",
+                            "R\$ ${products.price}",
                             style: TextStyle(
                               color: Colors.green.shade600,
                               fontWeight: FontWeight.bold,
