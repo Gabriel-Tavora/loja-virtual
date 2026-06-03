@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lojavirtual/controller/datas/products_data.dart';
-import 'package:lojavirtual/controller/tiles/products_screen.dart';
+import 'package:lojavirtual/view/pages/products_screen.dart';
 
 class ProductsType extends StatelessWidget {
   const ProductsType({
@@ -39,7 +39,7 @@ class ProductsType extends StatelessWidget {
                   AspectRatio(
                     aspectRatio: 1,
                     child: Image.network(
-                      products.seats![0].toString(),
+                      products.images!,
                       fit: BoxFit.cover,
                       width: double.infinity,
                     ),
@@ -81,7 +81,7 @@ class ProductsType extends StatelessWidget {
                     width: 170,
                     height: 150,
                     child: Image.network(
-                      products.seats![0].toString(),
+                      products.images!,
                       fit: BoxFit.cover,
                     ),
                   ),

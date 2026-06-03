@@ -16,78 +16,77 @@ class CategoryScreen extends StatelessWidget {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xFFC7E9FF),
-          centerTitle: true,
-          title: Text(doc["title"]),
-          titleTextStyle: const TextStyle(
-            color: Colors.white,
-            fontSize: 25,
-          ),
-          bottom: TabBar(
-            labelColor: Colors.black,
-            indicatorColor: Colors.blue.shade300,
-            tabs: const [
-              Tab(icon: Icon(Icons.grid_on)),
-              Tab(icon: Icon(Icons.list)),
-            ],
-          ),
-        ),
-        body: FutureBuilder<QuerySnapshot>(
-          future: FirebaseFirestore.instance
-              .collection("products")
-              .doc(doc.id)
-              .collection("itens")
-              .get(),
-          builder: (context, snapshot) {
-            if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            final docs = snapshot.data!.docs;
-
-            return TabBarView(
-              physics: const NeverScrollableScrollPhysics(),
-              children: [
-                // GRID
-                GridView.builder(
-                  padding: const EdgeInsets.all(4),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 4,
-                    mainAxisSpacing: 4,
-                    childAspectRatio: 0.75,
-                  ),
-                  itemCount: docs.length,
-                  itemBuilder: (context, index) {
-                    ProductsData data = ProductsData.fromDocument(docs[index]);
-
-                    return ProductsType(
-                      products: data,
-                      type: "grid",
-                    );
-                  },
-                ),
-
-                // LIST
-                ListView.builder(
-                  itemCount: docs.length,
-                  itemBuilder: (context, index) {
-                    ProductsData data = ProductsData.fromDocument(docs[index]);
-
-                    return ProductsType(
-                      products: data,
-                      type: "list",
-                    );
-                  },
-                ),
+          appBar: AppBar(
+            backgroundColor: const Color(0xFFC7E9FF),
+            centerTitle: true,
+            title: Text(doc["title"]),
+            titleTextStyle: const TextStyle(
+              color: Colors.white,
+              fontSize: 25,
+            ),
+            bottom: TabBar(
+              labelColor: Colors.black,
+              indicatorColor: Colors.blue.shade300,
+              tabs: const [
+                Tab(icon: Icon(Icons.grid_on)),
+                Tab(icon: Icon(Icons.list)),
               ],
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+          body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+            stream: FirebaseFirestore.instance
+                .collection("products")
+                .doc(doc.id)
+                .collection("itens")
+                .snapshots(),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              final docs = snapshot.data!.docs;
+
+              return TabBarView(
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  GridView.builder(
+                    padding: const EdgeInsets.all(4),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      crossAxisSpacing: 4,
+                      mainAxisSpacing: 4,
+                      childAspectRatio: 0.75,
+                    ),
+                    itemCount: docs.length,
+                    itemBuilder: (context, index) {
+                      ProductsData data =
+                          ProductsData.fromDocument(docs[index]);
+
+                      return ProductsType(
+                        products: data,
+                        type: "grid",
+                      );
+                    },
+                  ),
+                  ListView.builder(
+                    itemCount: docs.length,
+                    itemBuilder: (context, index) {
+                      ProductsData data =
+                          ProductsData.fromDocument(docs[index]);
+
+                      return ProductsType(
+                        products: data,
+                        type: "list",
+                      );
+                    },
+                  ),
+                ],
+              );
+            },
+          )),
     );
   }
 }
