@@ -6,7 +6,7 @@ import 'package:transparent_image/transparent_image.dart';
 import 'package:lojavirtual/models/widgets/builderbody.dart';
 
 class HomeTab extends StatelessWidget {
-  const HomeTab(this.pageController);
+  const HomeTab(this.pageController, {super.key});
   final PageController pageController ;
 
   @override
@@ -85,7 +85,7 @@ class HomeTab extends StatelessWidget {
                     childCount: docs.length,
                     itemBuilder: (context, index) {
                       final data = docs[index].data() as Map<String, dynamic>;
-                      return Container(
+                      return SizedBox(
                         height: (data["y"] * 120).toDouble(),
                         child: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
